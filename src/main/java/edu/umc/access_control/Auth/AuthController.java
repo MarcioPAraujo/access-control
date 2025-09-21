@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.umc.access_control.User.UserService;
 import edu.umc.access_control.payloads.UserRegistrationDTO;
-import jakarta.validation.Valid;
 
 @Controller("/")
 public class AuthController {
@@ -46,7 +45,7 @@ public class AuthController {
    * @return The name of the view or a redirect path.
    */
   @PostMapping("/register")
-  public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO registerRequest,
+  public String registerUser(@ModelAttribute("user") UserRegistrationDTO registerRequest,
       BindingResult bindingResult,
       Model model,
       RedirectAttributes redirectAttributes) {

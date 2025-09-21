@@ -1,6 +1,7 @@
 package edu.umc.access_control.User;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class UserService {
         UserModel newUser = new UserModel();
         newUser.setUsername(username);
         newUser.setEmail(email);
-        newUser.setRole(role);
+        newUser.setRoles(Set.of(role)); // Assign the specified role
 
         // 4. IMPORTANT: Hash the password before saving
         newUser.setPassword(passwordEncoder.encode(password));

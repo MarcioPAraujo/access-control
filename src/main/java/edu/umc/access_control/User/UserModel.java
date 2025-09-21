@@ -1,12 +1,17 @@
 package edu.umc.access_control.User;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Data;
+
+@Data
 @Document(collection = "users")
 public class UserModel {
 
@@ -42,7 +47,7 @@ public class UserModel {
    * A flag to indicate the role of the user (e.g., manager, leader, employee).
    * Mapped to the 'role' field in MongoDB.
    */
-  private Role role;
+  private Set<Role> roles = new HashSet<>();
 
   /**
    * A flag to indicate if the user has verified their email address.
@@ -56,74 +61,4 @@ public class UserModel {
    */
   @Field("creation_date")
   private LocalDateTime creationDate;
-
-  // --- Constructors ---
-  public UserModel() {
-    this.creationDate = LocalDateTime.now();
-  }
-
-  public UserModel(String username, String email, String password, Role role) {
-    this.username = username;
-    this.email = email;
-    this.password = password;
-    this.role = role;
-    this.creationDate = LocalDateTime.now();
-  }
-
-  // --- Getters and Setters ---
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public Role getRole() {
-    return role;
-  }
-
-  public void setRole(Role role) {
-    this.role = role;
-  }
-
-  public boolean isVerified() {
-    return isVerified;
-  }
-
-  public void setVerified(boolean verified) {
-    isVerified = verified;
-  }
-
-  public LocalDateTime getCreationDate() {
-    return creationDate;
-  }
-
-  public void setCreationDate(LocalDateTime creationDate) {
-    this.creationDate = creationDate;
-  }
 }

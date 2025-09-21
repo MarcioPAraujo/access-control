@@ -12,4 +12,9 @@ public class UserController {
     model.addAttribute("word", "user");
     return "word";
   }
+
+  @GetMapping("/home")
+  public String home() {
+    return "home";
+  }
 }

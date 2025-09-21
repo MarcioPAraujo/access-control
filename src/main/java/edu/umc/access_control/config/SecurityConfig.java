@@ -23,7 +23,7 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authz -> authz
             // Allow access to static resources and the registration page
-            .requestMatchers("/css/**", "/js/**", "/**").permitAll()
+            .requestMatchers("/css/**", "/js/**", "/login", "/register").permitAll()
             // All other requests must be authenticated
             .anyRequest().authenticated())
         // Configure form-based login
@@ -35,7 +35,7 @@ public class SecurityConfig {
         // Configure logout
         .logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/auth/login?logout") // Redirect to login page with a logout message
+            .logoutSuccessUrl("/login?logout") // Redirect to login page with a logout message
             .permitAll());
     return http.build();
   }
