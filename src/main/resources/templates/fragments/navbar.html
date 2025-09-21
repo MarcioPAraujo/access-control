@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<body>
+
+<!-- th:fragment defines a reusable template fragment named "navbar" -->
+<nav th:fragment="navbar">
+    <div>
+        <a th:href="@{/}">MyProject</a>
+
+        <ul>
+            <!-- These links will only be shown to users who are NOT authenticated -->
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Login</a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/register}">Register</a>
+            </li>
+            <li>
+                <a th:href="@{/employees}">Funcionários</a>
+            </li>
+            <li>
+                <a th:href="@{/leader}">Área do lider</a>
+            </li>
+            <li>
+                <a th:href="@{/admin}">Área do gerente</a>
+            </li>
+
+            <!-- This content will only be shown to users who ARE authenticated -->
+            <li sec:authorize="isAuthenticated()">
+                <span>Welcome, <span sec:authentication="name">User</span>!</span>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <!-- Logout needs to be a form submission to work with Spring Security's CSRF protection -->
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+</body>
+</html>

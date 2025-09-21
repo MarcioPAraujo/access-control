@@ -24,6 +24,9 @@ public class SecurityConfig {
         .authorizeHttpRequests(authz -> authz
             // Allow access to static resources and the registration page
             .requestMatchers("/css/**", "/js/**", "/login", "/register").permitAll()
+            .requestMatchers("/admin/**").hasRole("MANAGER")
+            .requestMatchers("/employees/**").hasAnyRole("EMPLOYEE", "MANAGER", "LEADER")
+            .requestMatchers("/leader/**").hasAnyRole("LEADER", "MANAGER")
             // All other requests must be authenticated
             .anyRequest().authenticated())
         // Configure form-based login
