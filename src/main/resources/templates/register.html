@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Cadastro</h1>
+   <form th:action="@{/register}" th:object="${user}" method="post">
+            
+            <!-- Username Field -->
+            <div>
+                <label for="username">Username</label>
+                <input id="username" type="text" th:field="*{username}" required />
+                <!-- Field-specific validation error -->
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            </div>
+
+            <!-- Email Field -->
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" th:field="*{email}" required />
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+
+            <!-- Password Field -->
+            <div>
+                <label for="password">Senha</label>
+                <input id="password" type="password" th:field="*{password}" required />
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            </div>
+
+            <div>
+              <label for="MANAGER">
+                <input id="MANAGER" type="radio" th:field="*{role}" value="MANAGER" checked name="role" /> Gerente
+              </label>
+              <label for="EMPLOYEE">
+                <input id="EMPLOYEE" type="radio" th:field="*{role}" value="EMPLOYEE" name="role"/> Funcionário
+              </label>
+              <label for="LEADER">
+                <input id="LEADER" type="radio" th:field="*{role}" value="LEADER" name="role" /> Líder
+              </label>
+              <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
+            </div>
+
+            <div>
+                <button type="submit">
+                    Criar uma conta
+                </button>
+            </div>
+        </form>
+
+        <div>
+            <p>
+                Já tem um cadastro?
+                <a th:href="@{/login}">
+                    Fazer login aqui
+                </a>
+            </p>
+        </div>
+</body>
+</html>

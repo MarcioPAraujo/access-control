@@ -20,9 +20,10 @@ public class SecurityConfig {
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
+        .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authz -> authz
             // Allow access to static resources and the registration page
-            .requestMatchers("/css/**", "/js/**", "/register").permitAll()
+            .requestMatchers("/css/**", "/js/**", "/**").permitAll()
             // All other requests must be authenticated
             .anyRequest().authenticated())
         // Configure form-based login
@@ -34,7 +35,7 @@ public class SecurityConfig {
         // Configure logout
         .logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/login?logout") // Redirect to login page with a logout message
+            .logoutSuccessUrl("/auth/login?logout") // Redirect to login page with a logout message
             .permitAll());
     return http.build();
   }
