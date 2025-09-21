@@ -1,4 +1,4 @@
-package edu.umc.access_control.User.config;
+package edu.umc.access_control.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +20,22 @@ public class SecurityConfig {
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-        .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless REST APIs
         .authorizeHttpRequests(authz -> authz
-            // Allow anyone to access endpoints under /api/auth/ (for registration/login)
-            .requestMatchers("/api/auth/**").permitAll()
+            // Allow access to static resources and the registration page
+            .requestMatchers("/css/**", "/js/**", "/register").permitAll()
             // All other requests must be authenticated
-            .anyRequest().authenticated());
+            .anyRequest().authenticated())
+        // Configure form-based login
+        .formLogin(form -> form
+            .loginPage("/login") // Specify a custom login page URL
+            .permitAll() // Everyone can access the login page
+            .defaultSuccessUrl("/home", true) // Redirect to /home on successful login
+        )
+        // Configure logout
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login?logout") // Redirect to login page with a logout message
+            .permitAll());
     return http.build();
   }
 }

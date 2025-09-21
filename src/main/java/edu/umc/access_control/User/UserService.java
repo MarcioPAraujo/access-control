@@ -29,10 +29,11 @@ public class UserService {
      * @param username The desired username.
      * @param email    The user's email address.
      * @param password The user's raw (un-hashed) password.
+     * @param role     The role assigned to the user.
      * @return The newly created UserModel.
      * @throws IllegalStateException if the username or email is already taken.
      */
-    public UserModel registerUser(String username, String email, String password) {
+    public UserModel registerUser(String username, String email, String password, Role role) {
         // 1. Validate that the username isn't already taken
         if (userRepository.existsByUsername(username)) {
             throw new IllegalStateException("Error: Username is already taken!");
@@ -47,6 +48,7 @@ public class UserService {
         UserModel newUser = new UserModel();
         newUser.setUsername(username);
         newUser.setEmail(email);
+        newUser.setRole(role);
 
         // 4. IMPORTANT: Hash the password before saving
         newUser.setPassword(passwordEncoder.encode(password));
@@ -75,5 +77,17 @@ public class UserService {
      */
     public Optional<UserModel> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    /**
+     * Deletes a user by their ID.
+     *
+     * @param id The ID of the user to delete.
+     * @return An Optional containing the deleted UserModel if it existed.
+     */
+    public Optional<UserModel> deleteById(String id) {
+        Optional<UserModel> user = userRepository.findById(id);
+        user.ifPresent(userRepository::delete);
+        return user;
     }
 }
