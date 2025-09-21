@@ -47,7 +47,7 @@ public class UserModel {
    * A flag to indicate the role of the user (e.g., manager, leader, employee).
    * Mapped to the 'role' field in MongoDB.
    */
-  private Set<Role> roles = new HashSet<>();
+  private Set<String> roles = new HashSet<>();
 
   /**
    * A flag to indicate if the user has verified their email address.

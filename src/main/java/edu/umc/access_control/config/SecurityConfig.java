@@ -24,11 +24,14 @@ public class SecurityConfig {
         .authorizeHttpRequests(authz -> authz
             // Allow access to static resources and the registration page
             .requestMatchers("/css/**", "/js/**", "/login", "/register").permitAll()
-            .requestMatchers("/admin/**").hasRole("MANAGER")
-            .requestMatchers("/employees/**").hasAnyRole("EMPLOYEE", "MANAGER", "LEADER")
-            .requestMatchers("/leader/**").hasAnyRole("LEADER", "MANAGER")
+            .requestMatchers("/admin").hasRole("MANAGER")
+            .requestMatchers("/employees").hasAnyRole("EMPLOYEE", "MANAGER", "LEADER")
+            .requestMatchers("/leader").hasAnyRole("LEADER", "MANAGER")
             // All other requests must be authenticated
             .anyRequest().authenticated())
+        .exceptionHandling(exceptions -> exceptions.accessDeniedPage("/403") // This tells Spring Security where to
+                                                                             // redirect
+        )
         // Configure form-based login
         .formLogin(form -> form
             .loginPage("/login") // Specify a custom login page URL

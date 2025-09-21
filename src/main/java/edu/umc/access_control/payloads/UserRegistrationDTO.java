@@ -1,6 +1,5 @@
 package edu.umc.access_control.payloads;
 
-import edu.umc.access_control.User.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,5 +13,5 @@ public class UserRegistrationDTO {
 
   private String password;
 
-  private Role role;
+  private String role;
 }

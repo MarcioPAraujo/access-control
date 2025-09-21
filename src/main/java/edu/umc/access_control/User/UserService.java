@@ -34,7 +34,7 @@ public class UserService {
      * @return The newly created UserModel.
      * @throws IllegalStateException if the username or email is already taken.
      */
-    public UserModel registerUser(String username, String email, String password, Role role) {
+    public UserModel registerUser(String username, String email, String password, String role) {
         // 1. Validate that the username isn't already taken
         if (userRepository.existsByUsername(username)) {
             throw new IllegalStateException("Error: Username is already taken!");

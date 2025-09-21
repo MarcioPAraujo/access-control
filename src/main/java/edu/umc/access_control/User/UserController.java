@@ -32,4 +32,9 @@ public class UserController {
   public String leader() {
     return "leader";
   }
+
+  @GetMapping("/403")
+  public String accessDenied() {
+    return "error/403"; // This corresponds to src/main/resources/templates/error/403.html
+  }
 }

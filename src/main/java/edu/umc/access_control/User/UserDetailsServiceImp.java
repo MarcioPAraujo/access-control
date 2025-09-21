@@ -38,6 +38,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
     List<GrantedAuthority> authorities = userEntity.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
         .collect(Collectors.toList());
+    System.out.println("Authorities: " + authorities); // Debugging line
 
     // 3. Convert your UserEntity into a Spring Security User object.
     // The User object implements the UserDetails interface.
